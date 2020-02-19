@@ -48,6 +48,11 @@ class Movie
      */
     private $synopsis;
 
+    /**
+     * @ORM\Column(type="string", length=300, nullable=true)
+     */
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class Movie
     public function setSynopsis(?string $synopsis): self
     {
         $this->synopsis = $synopsis;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
