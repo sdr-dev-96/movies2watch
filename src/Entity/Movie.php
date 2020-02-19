@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="App\Repository\MovieRepository")
  */
 class Movie
@@ -40,6 +42,11 @@ class Movie
      * @ORM\Column(type="boolean")
      */
     private $vue;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $synopsis;
 
     public function getId(): ?int
     {
@@ -102,6 +109,18 @@ class Movie
     public function setVue(bool $vue): self
     {
         $this->vue = $vue;
+
+        return $this;
+    }
+
+    public function getSynopsis(): ?string
+    {
+        return $this->synopsis;
+    }
+
+    public function setSynopsis(?string $synopsis): self
+    {
+        $this->synopsis = $synopsis;
 
         return $this;
     }
