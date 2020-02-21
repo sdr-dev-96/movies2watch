@@ -29,11 +29,6 @@ class Movie
     private $date_sortie;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $realisateur;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $note;
@@ -52,6 +47,11 @@ class Movie
      * @ORM\Column(type="string", length=300, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $id_tmdb;
 
     public function getId(): ?int
     {
@@ -81,19 +81,7 @@ class Movie
 
         return $this;
     }
-
-    public function getRealisateur(): ?string
-    {
-        return $this->realisateur;
-    }
-
-    public function setRealisateur(?string $realisateur): self
-    {
-        $this->realisateur = $realisateur;
-
-        return $this;
-    }
-
+    
     public function getNote(): ?int
     {
         return $this->note;
@@ -138,6 +126,18 @@ class Movie
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getIdTmdb(): ?int
+    {
+        return $this->id_tmdb;
+    }
+
+    public function setIdTmdb(int $id_tmdb): self
+    {
+        $this->id_tmdb = $id_tmdb;
 
         return $this;
     }
