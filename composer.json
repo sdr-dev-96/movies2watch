@@ -1,6 +1,6 @@
 {
-    "name": "Movies 2 Watch",
-    "description": "Interface d'ajouts de films à voir ou vus",
+    "name": "Movies 2 Watch API",
+    "description": "Interface API d'ajouts de films à voir",
     "authors": [
         {
             "name": "Stefane Rodrigues",
