@@ -1,4 +1,13 @@
 {
+    "name": "Movies 2 Watch",
+    "description": "Interface d'ajouts de films à voir ou vus",
+    "authors": [
+        {
+            "name": "Stefane Rodrigues",
+            "email": "stefanedr.dev@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "type": "project",
     "license": "proprietary",
     "require": {
