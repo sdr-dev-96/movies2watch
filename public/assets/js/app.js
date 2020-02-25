@@ -6,7 +6,7 @@ Vue.component('movie-item', {
     '<img class="card-img-top" v:if="movie.image" v-bind:src="API_IMG + movie.image" v-bind:alt="movie.titre">' +
     '<div class="card-body">' +
     '<h5 class="card-title" v-html="movie.titre"></h5>' +
-    '<p class="card-text" v-html="movie.synopsis"></p>' +
+    //'<p class="card-text" v-html="movie.synopsis"></p>' +
     '<a href="#" class="card-link">Vue</a>' +
     '<a href="#" class="card-link text-danger">Suppr</a>' +
     '</div>' +
