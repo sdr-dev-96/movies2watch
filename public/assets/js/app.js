@@ -5,17 +5,17 @@ Vue.component('movie-item', {
   template: '<div class="col-sm-4 col-xs-12"><div class="card" style="width: 18rem;" id>' +
     '<img class="card-img-top" v:if="movie.image" v-bind:src="API_IMG + movie.image" v-bind:alt="movie.titre">' +
     '<div class="card-body">' +
-    '<h5 class="card-title">{{ movie.titre }}</h5>' +
-    '<p class="card-text">{{ movie.synopsis }}</p>' +
+    '<h5 class="card-title" v-html="movie.titre"></h5>' +
+    '<p class="card-text" v-html="movie.synopsis"></p>' +
     '<a href="#" class="card-link">Vue</a>' +
     '<a href="#" class="card-link text-danger">Suppr</a>' +
     '</div>' +
-    "<div class=\"card-footer text-muted\">Sortie :  {{ new Date(movie.date).toLocaleDateString('fr', { year: 'numeric', month: 'long', day: 'numeric' }) }}</div>" +
+    //"<div class=\"card-footer text-muted\">Sortie :  ${ new Date(movie.date).toLocaleDateString('fr', { year: 'numeric', month: 'long', day: 'numeric' }) }</div>" +
     '</div></div>'
 });
 
 var app = new Vue({
-  el: '#app',
+  el: '#movies-form',
   delimiters: ['${', '}'],
   data: {
     apiImg: API_IMG,
@@ -111,7 +111,6 @@ var app = new Vue({
     }
   },
   mounted() {
-    //this.recupererMovies()
-    console.log('test');
+    this.recupererMovies()
   }
 })
