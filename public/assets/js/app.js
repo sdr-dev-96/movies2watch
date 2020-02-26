@@ -32,7 +32,7 @@ var app = new Vue({
             data: {
               "titre": movie.title,
               "dateSortie": movie.release_date,
-              "synopsis": movie.overview.slice(0, 300)+'...',
+              "synopsis": movie.overview.slice(0, 300) + '...',
               "note": 0,
               "vue": false,
               "image": movie.poster_path,
@@ -73,53 +73,64 @@ var app = new Vue({
      */
     recupererMovies() {
       axios
-      .get(API_M2W + '/movies', {
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then(response => {        
-        if (response.status == 200) {
-          let data = response.data;
-          let results = data['hydra:member'];
-          this.movies = [];
-          results.forEach(element => {
-            this.movies.push({
-              id: element.id,
-              titre: element.titre,
-              date: element.dateSortie,
-              synopsis: element.synopsis,
-              vue: element.vue,
-              image: element.image
+        .get(API_M2W + '/movies', {
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then(response => {
+          if (response.status == 200) {
+            let data = response.data;
+            let results = data['hydra:member'];
+            this.movies = [];
+            results.forEach(element => {
+              this.movies.push({
+                id: element.id,
+                titre: element.titre,
+                date: element.dateSortie,
+                synopsis: element.synopsis,
+                vue: element.vue,
+                image: element.image
+              });
             });
-          });
-        }
-      });
+          }
+        });
     },
     /**
      * Permet de mettre à jour un film
      * @param {int} id 
      * @param {int} etat 
      */
-    updateMovie(id, etat) {
-        if(etat == 1) {
-          console.log('je l\'ai vue !');
-        } else if (etat == 0) {
-          console.log('je ne l\'ai pas vue !');
+    updateMovie(id, etat, e) {
+      axios({
+        method: 'put',
+        url: API_M2W + '/movies/' + id,
+        data: {
+          "vue": (etat == 1) ? true : false
         }
+      }).then(response => {
+        if (response.status == 200) {
+          this.recupererMovies();
+        } else {
+          console.log(response);
+        }
+      });
+    },
+
+    deleteMovie(id) {
+      if(confirm('Etes-vous sûr de vouloir supprimer ce film ?')) {
         axios({
-          method: 'put',
-          url: API_M2W + '/movies/' + id,
-          data: {
-            "vue": (etat == 1) ? true : false
-          }
+          method: 'delete',
+          url: API_M2W + '/movies/' + id
         }).then(response => {
-            if(response.status == 200) {
-              this.recupererMovies();
-            } else {
-              console.log(response);
-            }
+          if (response.status == 200) {
+            this.recupererMovies();
+            alert('Film bien supprimé !');
+          } else {
+            console.log(response);
+          }
         });
+      }      
     }
   },
   mounted() {

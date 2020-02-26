@@ -1,3 +1,13 @@
 .card {
     margin: 15px;
 }
+
+.card-footer {
+    background-color: transparent;
+    border: none;
+}
+
+a {
+    font-size: 20px;
+    margin-left: 5px;
+}

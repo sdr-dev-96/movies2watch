@@ -46,19 +46,10 @@
                         <p class="card-text">${ m.synopsis.slice(0, 150) }...</p>
                         <p class="card-text"><small class="text-muted">Année de sortie :  ${ m.date.slice(0,4) }</small></p>
                     </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-primary btn-sm float-left" id="left" style="color:white"> 
-                            Voir Fiche 
-                        </button>
-                        <button v-on:click="updateMovie(m.id, 0)" v-if="m.vue" class="btn btn-warning btn-sm" id="center" style="color:white"> 
-                            Déjà Vue !
-                        </button>
-                        <button v-on:click="updateMovie(m.id, 1)" v-else class="btn btn-warning btn-sm" id="center" style="color:white"> 
-                            Pas Vue !
-                        </button>
-                        <button class="btn btn-danger btn-sm float-right" id="right" style="color:white"> 
-                            Supprimer
-                        </button> 
+                    <div class="card-footer text-right">
+                        <a class="text-success" title="Je n'ai pas vue ce film" href="#" v-on:click="updateMovie(m.id, 0)" v-if="m.vue"><i class="fas fa-check"></i></a>
+                        <a class="text-warning" title="J'ai vue ce film !" href="#" v-on:click="updateMovie(m.id, 1)" v-else><i class="far fa-square"></i></a>
+                        <a class="text-danger" title="Supprimer ce film" href="#" v-on:click="deleteMovie(m.id)"><i class="fas fa-trash-alt"></i></a>
                     </div> 
                 </div>
             </div>
