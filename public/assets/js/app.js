@@ -1,19 +1,5 @@
 //app.js
 
-Vue.component('movie-item', {
-  props: ['movie'],
-  template: '<div class="col-sm-4 col-xs-12"><div class="card" style="width: 18rem;" id>' +
-    '<img class="card-img-top" v:if="movie.image" v-bind:src="API_IMG + movie.image" v-bind:alt="movie.titre">' +
-    '<div class="card-body">' +
-    '<h5 class="card-title" v-html="movie.titre"></h5>' +
-    //'<p class="card-text" v-html="movie.synopsis"></p>' +
-    '<a href="#" class="card-link">Vue</a>' +
-    '<a href="#" class="card-link text-danger">Suppr</a>' +
-    '</div>' +
-    //"<div class=\"card-footer text-muted\">Sortie :  ${ new Date(movie.date).toLocaleDateString('fr', { year: 'numeric', month: 'long', day: 'numeric' }) }</div>" +
-    '</div></div>'
-});
-
 var app = new Vue({
   el: '#movies-form',
   delimiters: ['${', '}'],
@@ -96,6 +82,7 @@ var app = new Vue({
         if (response.status == 200) {
           let data = response.data;
           let results = data['hydra:member'];
+          this.movies = [];
           results.forEach(element => {
             this.movies.push({
               id: element.id,
@@ -108,6 +95,31 @@ var app = new Vue({
           });
         }
       });
+    },
+    /**
+     * Permet de mettre à jour un film
+     * @param {int} id 
+     * @param {int} etat 
+     */
+    updateMovie(id, etat) {
+        if(etat == 1) {
+          console.log('je l\'ai vue !');
+        } else if (etat == 0) {
+          console.log('je ne l\'ai pas vue !');
+        }
+        axios({
+          method: 'put',
+          url: API_M2W + '/movies/' + id,
+          data: {
+            "vue": (etat == 1) ? true : false
+          }
+        }).then(response => {
+            if(response.status == 200) {
+              this.recupererMovies();
+            } else {
+              console.log(response);
+            }
+        });
     }
   },
   mounted() {

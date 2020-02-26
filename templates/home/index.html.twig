@@ -29,15 +29,40 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <br><br>
     <div class="row" v-if="movies.length">
         <div class="col-xs-12 col-sm-12">
-            <h2>Films ajoutés</h2>
-        </div>            
-        <movie-item
-            v-for="item in movies"
-            v-bind:movie="item"
-        ></movie-item>
+            <h2>Mes Films</h2>
+        </div>
+        <div class="card col-xs-4" style="max-width: 540px;" v-for="m in movies">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img v-bind:src="'https://image.tmdb.org/t/p/w780/' + m.image" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">${ m.titre }</h5>
+                        <p class="card-text">${ m.synopsis.slice(0, 150) }...</p>
+                        <p class="card-text"><small class="text-muted">Année de sortie :  ${ m.date.slice(0,4) }</small></p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-primary btn-sm float-left" id="left" style="color:white"> 
+                            Voir Fiche 
+                        </button>
+                        <button v-on:click="updateMovie(m.id, 0)" v-if="m.vue" class="btn btn-warning btn-sm" id="center" style="color:white"> 
+                            Déjà Vue !
+                        </button>
+                        <button v-on:click="updateMovie(m.id, 1)" v-else class="btn btn-warning btn-sm" id="center" style="color:white"> 
+                            Pas Vue !
+                        </button>
+                        <button class="btn btn-danger btn-sm float-right" id="right" style="color:white"> 
+                            Supprimer
+                        </button> 
+                    </div> 
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
