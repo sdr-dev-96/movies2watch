@@ -32,7 +32,7 @@ var app = new Vue({
             data: {
               "titre": movie.title,
               "dateSortie": movie.release_date,
-              "synopsis": movie.overview.slice(0, 300) + '...',
+              "synopsis": movie.overview.slice(0, 150) + '...',
               "note": 0,
               "vue": false,
               "image": movie.poster_path,
@@ -46,9 +46,9 @@ var app = new Vue({
     },
     /**
      * Permet de rechercher un film dans l'API de TMDB
-     * @param {*} e 
+     * @param {Event} e 
      */
-    searchMovie(e) {
+    searchMovie: function(e) {
       let query = e.target.value;
       if (query.length >= 2) {
         axios({
@@ -62,16 +62,18 @@ var app = new Vue({
         }).then(response => {
           let data = response.data;
           if (data.total_results >= 1) {
-            this.results = data.results;
+            this.results = data.results.slice(0, 9);
           }
         });
+      } else if(query.length == 0) {
+        this.results = [];
       }
     },
     /**
      * Permet de récupérer les films de notre liste
      * @param {*} e 
      */
-    recupererMovies() {
+    recupererMovies: function() {
       axios
         .get(API_M2W + '/movies', {
           headers: {
@@ -101,7 +103,7 @@ var app = new Vue({
      * @param {int} id 
      * @param {int} etat 
      */
-    updateMovie(id, etat, e) {
+    updateMovie: function(id, etat, e) {
       axios({
         method: 'put',
         url: API_M2W + '/movies/' + id,
@@ -117,7 +119,7 @@ var app = new Vue({
       });
     },
 
-    deleteMovie(id) {
+    deleteMovie: function(id) {
       if(confirm('Etes-vous sûr de vouloir supprimer ce film ?')) {
         axios({
           method: 'delete',
@@ -133,7 +135,7 @@ var app = new Vue({
       }      
     }
   },
-  mounted() {
-    this.recupererMovies()
+  created() {
+    this.recupererMovies();
   }
 })
