@@ -23,11 +23,17 @@
                 <img class="card-img-top" v-if="r.poster_path" v-bind:src="apiImg + r.poster_path" v-bind:alt="r.title">
                 <div class="card-body">
                     <h5 class="card-title">${ r.title }</h5>
-                    <p class="card-text">${ r.overview.slice(0, 255) }...</p>
-                    <p class="card-text"><small class="text-muted">Sortie : ${ r.release_date }</small></p>
+                    <p class="card-text">${ r.overview | formatSynopsis }...</p>
+                    <p class="card-text"><small class="text-muted">Année de sortie : ${ r.release_date | formatDate }</small></p>
                     <button v-bind:id="r.id" v-on:click="addMovie" class="btn btn-primary" type="button">Ajouter</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <br><br>
+    <div id="spinner-loading" class="d-flex justify-content-center" v-if="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
     <br><br>
@@ -43,13 +49,22 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">${ m.titre }</h5>
-                        <p class="card-text">${ m.synopsis.slice(0, 150) }...</p>
-                        <p class="card-text"><small class="text-muted">Année de sortie :  ${ m.date.slice(0,4) }</small></p>
+                        <p class="card-text">${ m.synopsis | formatSynopsis }...</p>
+                        <p class="card-text"><small class="text-muted">Année de sortie :  ${ m.date | formatDate }</small></p>
                     </div>
                     <div class="card-footer text-right">
-                        <a class="text-success" title="Je n'ai pas vue ce film" href="#" v-on:click="updateMovie(m.id, 0)" v-if="m.vue"><i class="fas fa-check"></i></a>
-                        <a class="text-warning" title="J'ai vue ce film !" href="#" v-on:click="updateMovie(m.id, 1)" v-else><i class="far fa-square"></i></a>
-                        <a class="text-danger" title="Supprimer ce film" href="#" v-on:click="deleteMovie(m.id)"><i class="fas fa-trash-alt"></i></a>
+                        <a class="text-success" title="Je n'ai pas vue ce film" href="#"
+                            v-on:click="updateMovie(m.id, 0)" v-if="m.vue">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a class="text-warning" title="J'ai vue ce film !" href="#" 
+                            v-on:click="updateMovie(m.id, 1)" v-else>
+                            <i class="far fa-square"></i>
+                        </a>
+                        <a class="text-danger" title="Supprimer ce film" href="#" 
+                            v-on:click="deleteMovie(m.id)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                     </div> 
                 </div>
             </div>

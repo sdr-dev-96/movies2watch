@@ -1,11 +1,24 @@
 //app.js
 
+Vue.filter('formatSynopsis', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.slice(0, 150)
+})
+
+Vue.filter('formatDate', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.slice(0, 4)
+})
+
 var app = new Vue({
   el: '#movies-form',
   delimiters: ['${', '}'],
   data: {
     apiImg: API_IMG,
     search: '',
+    loading: true,
     movies: [],
     results: []
   },
@@ -96,7 +109,7 @@ var app = new Vue({
               });
             });
           }
-        });
+        }).finally(() => this.loading = false);
     },
     /**
      * Permet de mettre à jour un film

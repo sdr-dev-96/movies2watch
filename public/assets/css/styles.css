@@ -11,3 +11,7 @@ a {
     font-size: 20px;
     margin-left: 5px;
 }
+
+#spinner-loading {
+    margin: 20px auto;
+}
