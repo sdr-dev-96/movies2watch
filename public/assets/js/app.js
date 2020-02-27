@@ -138,7 +138,7 @@ var app = new Vue({
           method: 'delete',
           url: API_M2W + '/movies/' + id
         }).then(response => {
-          if (response.status == 200) {
+          if (response.status == 204) {
             this.recupererMovies();
             alert('Film bien supprimé !');
           } else {
