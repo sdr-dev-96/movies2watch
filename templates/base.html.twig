@@ -13,6 +13,40 @@
         {% endblock %}        
     </head>
     <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('home') }}">Movies2Watch</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                {% if app.user %}
+                <li class="nav-item dropdown avatar">
+                    <a class="nav-link dropdown-toggle" id="avatar-dropdown" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" 
+                            class="rounded-circle z-depth-0 border border-success"
+                            alt="{{ app.user.prenom }} {{ app.user.nom }}" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                    aria-labelledby="avatar-dropdown">
+                        <a class="dropdown-item" href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;Mon Profil</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-film"></i>&nbsp;&nbsp;Mes Films</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Déconnexion</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item {% if app.request.attributes.get('_route') == 'login' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('login') }}">Connexion</a>
+                </li>
+                <li class="nav-item {% if app.request.attributes.get('_route') == 'register' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('register') }}">Inscription</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        </nav>
         <div class="container">
             {% block body %}{% endblock %}
         </div>

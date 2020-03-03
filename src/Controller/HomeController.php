@@ -13,7 +13,8 @@ class HomeController extends AbstractController
     public function index()
     {
         return $this->render('home/index.html.twig', [
-            'title' =>  "Movies2Watch"
+            'title' =>  "Movies2Watch",
+            'page'  =>  'home'
         ]);
     }
 }

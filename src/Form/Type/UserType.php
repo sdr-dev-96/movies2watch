@@ -73,7 +73,11 @@ class UserType extends AbstractType
                 ),
                 'widget' => 'single_text',
             ))
-            ->add('Enregistrer', SubmitType::class)
+            ->add('Enregistrer', SubmitType::class, array(
+                'attr'  =>  array(
+                    'class' =>  'btn btn-success btn-lg btn-block'
+                )
+            ))
         ;
     }
 }
