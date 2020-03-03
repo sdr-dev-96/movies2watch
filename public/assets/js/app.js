@@ -49,7 +49,8 @@ var app = new Vue({
               "note": 0,
               "vue": false,
               "image": movie.poster_path,
-              "idTmdb": movie.id
+              "idTmdb": movie.id,
+              "dateAjout": "2020-03-03T23:12:19.354Z"
             }
           });
           this.results = [];

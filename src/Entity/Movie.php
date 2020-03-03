@@ -53,6 +53,11 @@ class Movie
      */
     private $id_tmdb;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_ajout;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +143,18 @@ class Movie
     public function setIdTmdb(int $id_tmdb): self
     {
         $this->id_tmdb = $id_tmdb;
+
+        return $this;
+    }
+
+    public function getDateAjout(): ?\DateTimeInterface
+    {
+        return $this->date_ajout;
+    }
+
+    public function setDateAjout(\DateTimeInterface $date_ajout): self
+    {
+        $this->date_ajout = $date_ajout;
 
         return $this;
     }
