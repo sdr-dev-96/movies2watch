@@ -21,15 +21,17 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 {% if app.user %}
-                <li class="nav-item dropdown avatar">
+                <li class="nav-item dropdown avatar">                    
                     <a class="nav-link dropdown-toggle" id="avatar-dropdown" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" 
+                        <img src="{{ asset('assets/img/avatar/avatar-default.jpg')}}" 
                             class="rounded-circle z-depth-0 border border-success"
                             alt="{{ app.user.prenom }} {{ app.user.nom }}" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default"
                     aria-labelledby="avatar-dropdown">
+                        <span class="dropdown-item">{{ app.user.prenom }} {{ app.user.nom }}</span>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;Mon Profil</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-film"></i>&nbsp;&nbsp;Mes Films</a>
                         <div class="dropdown-divider"></div>

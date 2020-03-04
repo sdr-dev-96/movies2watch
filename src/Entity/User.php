@@ -60,6 +60,11 @@ class User implements UserInterface
 
     private $roles;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -176,5 +181,17 @@ class User implements UserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 }

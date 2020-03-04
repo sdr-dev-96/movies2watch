@@ -12,6 +12,17 @@
     margin-left: 5px;
 }
 
+#avatar-dropdown:hover {
+    cursor: pointer;
+}
+
+#msg-username {
+    padding: 5% 2%;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+}
+
 #spinner-loading {
     margin: 20px auto;
 }
