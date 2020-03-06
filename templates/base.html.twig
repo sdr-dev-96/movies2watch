@@ -10,6 +10,7 @@
                 crossorigin="anonymous">
             <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
             <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
+            <link rel="shortcut icon" href="favicon.ico">
         {% endblock %}        
     </head>
     <body>
@@ -35,7 +36,7 @@
                         <a class="dropdown-item" href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;Mon Profil</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-film"></i>&nbsp;&nbsp;Mes Films</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Déconnexion</a>
+                        <a class="dropdown-item" href="{{ path('logout') }}"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Déconnexion</a>
                     </div>
                 </li>
                 {% else %}
@@ -63,7 +64,7 @@
             crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
         <script src="{{ asset('assets/js/axios.min.js?2020') }}"></script>
-        <script src="{{ asset('assets/js/config.js?2020') }}"></script>
+        <script src="{{ asset('assets/js/conf.js?2020') }}"></script>
         <script src="{{ asset('assets/js/functions.js?2020') }}"></script>
         <script src="{{ asset('assets/js/constants.js?2020') }}"></script>
         {% block javascripts %}{% endblock %}

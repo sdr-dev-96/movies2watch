@@ -125,6 +125,8 @@ var app = new Vue({
             });
           }
         }).finally(() => this.loading = false);
+      } else {
+        this.loading = false
       }
     },
     /**
