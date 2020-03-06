@@ -8,9 +8,12 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-/public/assets/js/config.js
+
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
 /src/Migrations
+
+/public/assets/js/config.js
+/public/assets/js/conf.js

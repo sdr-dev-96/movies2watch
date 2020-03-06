@@ -48,23 +48,17 @@ var app = new Vue({
               "vue": false,
               "image": movie.poster_path,
               "idTmdb": movie.id,
-              "dateAjout": getTodayIso()
+              "dateAjout": getTodayIso(),
+              "idUser": "api/users/" + idUser.toString()
             };
-            console.log(data);
             axios({
               method: 'post',
               url: API_M2W + '/movies',
-              data: {
-                "titre": movie.title,
-                "dateSortie": movie.release_date,
-                "synopsis": movie.overview.slice(0, 150) + '...',
-                "note": 0,
-                "vue": false,
-                "image": movie.poster_path,
-                "idTmdb": movie.id,
-                "dateAjout": getDateFormatIso(),
-                "idUser": idUser
-              }
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Accept": "application/json",
+              },
+              data: data
             });
             this.results = [];
             this.recupererMovies();
@@ -107,32 +101,6 @@ var app = new Vue({
       idUser = parseInt(idUser);
       if(idUser != 0) {
         axios
-        .get(API_M2W + '/users/' + idUser, {
-          headers: {
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then(response => {
-          if (response.status == 200) {
-            let data = response.data;
-            let results = [];
-            //console.log(data.movies);
-            /*let results = data['hydra:member'];
-            this.movies = [];
-            results.forEach(element => {
-              this.movies.push({
-                id: element.id,
-                titre: element.titre,
-                date: element.dateSortie,
-                synopsis: element.synopsis,
-                vue: element.vue,
-                image: element.image
-              });
-            });*/
-          }
-        }).finally(() => this.loading = false);
-      }
-      /*axios
         .get(API_M2W + '/movies', {
           headers: {
             "Access-Control-Allow-Origin": "*"
@@ -144,24 +112,31 @@ var app = new Vue({
             let results = data['hydra:member'];
             this.movies = [];
             results.forEach(element => {
-              this.movies.push({
-                id: element.id,
-                titre: element.titre,
-                date: element.dateSortie,
-                synopsis: element.synopsis,
-                vue: element.vue,
-                image: element.image
-              });
+              if(element.idUser = idUser) {
+                this.movies.push({
+                  id: element.id,
+                  titre: element.titre,
+                  date: element.dateSortie,
+                  synopsis: element.synopsis,
+                  vue: element.vue,
+                  image: element.image
+                });
+              }
             });
           }
-        }).finally(() => this.loading = false);*/
+        }).finally(() => this.loading = false);
+      }
     },
     /**
      * Permet de mettre à jour un film
-     * @param {int} id 
-     * @param {int} etat 
+     * @param {int}     id 
+     * @param {int}     etat 
+     * @param {object}  event
      */
-    updateMovie: function(id, etat, e) {
+    updateMovie: function(id, etat, event) {
+      if (event) {
+        event.preventDefault()
+      }
       axios({
         method: 'put',
         url: API_M2W + '/movies/' + id,

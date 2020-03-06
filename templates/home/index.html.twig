@@ -54,11 +54,11 @@
                     </div>
                     <div class="card-footer text-right">
                         <a class="text-success" title="Je n'ai pas vue ce film" href="#"
-                            v-on:click="updateMovie(m.id, 0)" v-if="m.vue">
+                            v-on:click="updateMovie(m.id, 0, $event)" v-if="m.vue">
                             <i class="fas fa-check"></i>
                         </a>
                         <a class="text-warning" title="J'ai vue ce film !" href="#" 
-                            v-on:click="updateMovie(m.id, 1)" v-else>
+                            v-on:click="updateMovie(m.id, 1, $event)" v-else>
                             <i class="far fa-square"></i>
                         </a>
                         <a class="text-danger" title="Supprimer ce film" href="#" 
