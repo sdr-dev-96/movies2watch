@@ -29,34 +29,50 @@ var app = new Vue({
      */
     addMovie: function (e) {
       let idMovie = e.target.id;
-      axios({
-        method: 'get',
-        url: API_MDB + '/movie/' + idMovie,
-        params: {
-          language: 'fr',
-          api_key: TOKEN_TMDB
-        }
-      }).then(response => {
-        let movie = response.data;
-        if (movie) {
-          axios({
-            method: 'post',
-            url: API_M2W + '/movies',
-            data: {
+      if(idUser != 0) {
+        axios({
+          method: 'get',
+          url: API_MDB + '/movie/' + idMovie,
+          params: {
+            language: 'fr',
+            api_key: TOKEN_TMDB
+          }
+        }).then(response => {
+          let movie = response.data;
+          if (movie) {
+            let data = {
               "titre": movie.title,
-              "dateSortie": movie.release_date,
+              "dateSortie": movie.release_date.slice(0, 4),
               "synopsis": movie.overview.slice(0, 150) + '...',
               "note": 0,
               "vue": false,
               "image": movie.poster_path,
               "idTmdb": movie.id,
-              "dateAjout": "2020-03-03T23:12:19.354Z"
-            }
-          });
-          this.results = [];
-          this.recupererMovies();
-        }
-      });
+              "dateAjout": getTodayIso()
+            };
+            console.log(data);
+            axios({
+              method: 'post',
+              url: API_M2W + '/movies',
+              data: {
+                "titre": movie.title,
+                "dateSortie": movie.release_date,
+                "synopsis": movie.overview.slice(0, 150) + '...',
+                "note": 0,
+                "vue": false,
+                "image": movie.poster_path,
+                "idTmdb": movie.id,
+                "dateAjout": getDateFormatIso(),
+                "idUser": idUser
+              }
+            });
+            this.results = [];
+            this.recupererMovies();
+          }
+        });
+      } else {
+        window.location.replace('//127.0.0.1:8000/login');
+      }
     },
     /**
      * Permet de rechercher un film dans l'API de TMDB
@@ -88,7 +104,35 @@ var app = new Vue({
      * @param {*} e 
      */
     recupererMovies: function() {
-      axios
+      idUser = parseInt(idUser);
+      if(idUser != 0) {
+        axios
+        .get(API_M2W + '/users/' + idUser, {
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then(response => {
+          if (response.status == 200) {
+            let data = response.data;
+            let results = [];
+            //console.log(data.movies);
+            /*let results = data['hydra:member'];
+            this.movies = [];
+            results.forEach(element => {
+              this.movies.push({
+                id: element.id,
+                titre: element.titre,
+                date: element.dateSortie,
+                synopsis: element.synopsis,
+                vue: element.vue,
+                image: element.image
+              });
+            });*/
+          }
+        }).finally(() => this.loading = false);
+      }
+      /*axios
         .get(API_M2W + '/movies', {
           headers: {
             "Access-Control-Allow-Origin": "*"
@@ -110,7 +154,7 @@ var app = new Vue({
               });
             });
           }
-        }).finally(() => this.loading = false);
+        }).finally(() => this.loading = false);*/
     },
     /**
      * Permet de mettre à jour un film

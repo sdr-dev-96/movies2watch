@@ -72,3 +72,10 @@
     </div>
 </div>
 {% endblock %}
+{% block javascripts %}
+    {% if app.user %}
+        <script>
+            idUser = '{{ app.user.id }}';
+        </script>
+    {% endif %}
+{% endblock %}
