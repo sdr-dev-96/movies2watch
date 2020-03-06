@@ -33,7 +33,7 @@
                     aria-labelledby="avatar-dropdown">
                         <span class="dropdown-item">{{ app.user.prenom }} {{ app.user.nom }}</span>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="fas fa-user"></i>&nbsp;&nbsp;Mon Profil</a>
+                        <a class="dropdown-item" href="{{ path('profil') }}"><i class="fas fa-user"></i>&nbsp;&nbsp;Mon Profil</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-film"></i>&nbsp;&nbsp;Mes Films</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ path('logout') }}"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Déconnexion</a>
