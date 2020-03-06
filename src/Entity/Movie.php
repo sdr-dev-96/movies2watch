@@ -58,6 +58,12 @@ class Movie
      */
     private $date_ajout;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="movies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $id_user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +161,18 @@ class Movie
     public function setDateAjout(\DateTimeInterface $date_ajout): self
     {
         $this->date_ajout = $date_ajout;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?User
+    {
+        return $this->id_user;
+    }
+
+    public function setIdUser(?User $id_user): self
+    {
+        $this->id_user = $id_user;
 
         return $this;
     }
