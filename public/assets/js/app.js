@@ -100,29 +100,34 @@ var app = new Vue({
     recupererMovies: function() {
       idUser = parseInt(idUser);
       if(idUser != 0) {
+        this.loading = false;
         axios
-        .get(API_M2W + '/movies', {
+        .get(API_M2W + '/users/' + idUser, {
           headers: {
             "Access-Control-Allow-Origin": "*"
           }
         })
         .then(response => {
+          //console.log(response.data);
           if (response.status == 200) {
             let data = response.data;
-            let results = data['hydra:member'];
-            this.movies = [];
-            results.forEach(element => {
-              if(element.idUser = idUser) {
-                this.movies.push({
-                  id: element.id,
-                  titre: element.titre,
-                  date: element.dateSortie,
-                  synopsis: element.synopsis,
-                  vue: element.vue,
-                  image: element.image
-                });
-              }
-            });
+            let userMovies = data.movies;
+            console.log(userMovies);
+            if(userMovies.length) {
+              this.movies = [];
+              userMovies.forEach(element => {
+                if(element.idUser = idUser) {
+                  this.movies.push({
+                    id: element.id,
+                    titre: element.titre,
+                    date: element.dateSortie,
+                    synopsis: element.synopsis,
+                    vue: element.vue,
+                    image: element.image
+                  });
+                }
+              });
+            }
           }
         }).finally(() => this.loading = false);
       } else {

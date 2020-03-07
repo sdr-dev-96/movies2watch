@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource
@@ -15,16 +16,19 @@ class Movie
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("movie")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("movie")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups("movie")
      */
     private $date_sortie;
 
@@ -35,16 +39,19 @@ class Movie
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("movie")
      */
     private $vue;
 
     /**
      * @ORM\Column(type="string", length=1000, nullable=true)
+     * @Groups("movie")
      */
     private $synopsis;
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
+     * @Groups("movie")
      */
     private $image;
 
