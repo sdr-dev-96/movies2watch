@@ -15,8 +15,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(normalizationContext={"groups"={"movie"}})
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email")
- * @UniqueEntity("username")
+ * @UniqueEntity("email", message="Cette adresse mail est déjà utilisé.")
+ * @UniqueEntity("username", message="Ce nom d'utilisateur est déjà utilisé.")
  */
 class User implements UserInterface
 {
@@ -44,6 +44,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *      message =   "L'adresse mail '{{ value }}' n'est pas valide.",
+     *      mode    =   "loose"
+     * )
      */
     private $email;
 
