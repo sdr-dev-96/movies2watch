@@ -65,10 +65,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $credentials['username']]);
-
+        if (!$user) {
+            $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['username']]);
+        }
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Username could not be found.');
+            throw new CustomUserMessageAuthenticationException('Adresse mail / Nom d\'utilisateur incorrect.');
         }
 
         return $user;
@@ -77,6 +79,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        //Nom d'utilisateur et/ou mot de passe incorrect(s)
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
