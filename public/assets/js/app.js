@@ -1,11 +1,17 @@
 //app.js
 
+/**
+ * Filtre Vue afin de render le synopsis à un format plus court
+ */
 Vue.filter('formatSynopsis', function (value) {
   if (!value) return ''
   value = value.toString()
   return value.slice(0, 150)
 })
 
+/**
+ * Filtre Vue afin de render la date à un format dd/mm/YYYY
+ */
 Vue.filter('formatDate', function (value) {
   if (!value) return ''
   value = value.toString()
