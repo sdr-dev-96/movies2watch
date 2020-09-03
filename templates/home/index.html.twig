@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-8 offset-sm-2">
-            <input v-on:keyup="searchMovie" v-model="search" type="text" class="form-control" placeholder="Entrez un film">             
+            <input v-on:keyup="searchMovie" v-model="search" type="text" class="form-control" placeholder="Recherchez un film ...">             
         </div>
     </div>
     <div class="row">
@@ -50,7 +50,7 @@
                     <div class="card-body">
                         <h5 class="card-title">${ m.titre }</h5>
                         <p class="card-text">${ m.synopsis | formatSynopsis }...</p>
-                        <p class="card-text"><small class="text-muted">Année de sortie :  ${ m.date | formatDate }</small></p>
+                        <p class="card-text"><small class="text-muted">Année de sortie :  ${ m.dateSortie | formatDate }</small></p>
                     </div>
                     <div class="card-footer text-right">
                         <a class="text-success" title="Je n'ai pas vue ce film" href="#"
@@ -71,11 +71,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-{% block javascripts %}
-    {% if app.user %}
-        <script>
-            idUser = '{{ app.user.id }}';
-        </script>
-    {% endif %}
 {% endblock %}

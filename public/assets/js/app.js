@@ -26,9 +26,11 @@ var app = new Vue({
     search: '',
     loading: true,
     movies: [],
-    results: []
+    results: [],
+    filtre: 0
   },
   methods: {
+
     /**
      * Permet d'ajouter un film dans la liste
      * @param {*} e 
@@ -74,6 +76,7 @@ var app = new Vue({
         window.location.replace('//127.0.0.1:8000/login');
       }
     },
+
     /**
      * Permet de rechercher un film dans l'API de TMDB
      * @param {Event} e 
@@ -99,6 +102,7 @@ var app = new Vue({
         this.results = [];
       }
     },
+
     /**
      * Permet de récupérer les films de notre liste
      * @param {*} e 
@@ -114,7 +118,7 @@ var app = new Vue({
           }
         })
         .then(response => {
-          //console.log(response.data);
+          
           if (response.status == 200) {
             let data = response.data;
             let userMovies = data.movies;
@@ -140,6 +144,15 @@ var app = new Vue({
         this.loading = false
       }
     },
+
+    /**
+     * Permet de filtrer les films déjà vus, non vus
+     * @param {int} option 
+     */
+    filtrerMovies: function(option) {
+      console.log(option);
+    },
+
     /**
      * Permet de mettre à jour un film
      * @param {int}     id 
@@ -165,6 +178,10 @@ var app = new Vue({
       });
     },
 
+    /**
+     * Permet de supprimer un film de son compte
+     * @param {int} id 
+     */
     deleteMovie: function(id) {
       if(confirm('Etes-vous sûr de vouloir supprimer ce film ?')) {
         axios({

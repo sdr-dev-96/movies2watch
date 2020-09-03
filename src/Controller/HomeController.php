@@ -41,4 +41,14 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/mes-films", name="mesFilms")
+     */
+    public function mesFilms()
+    {
+        return $this->render('home/mes-films.html.twig', [
+            'title' =>  "Movies2Watch"
+        ]);
+    }
 }
