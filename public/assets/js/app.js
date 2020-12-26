@@ -37,6 +37,8 @@ var app = new Vue({
      */
     addMovie: function (e) {
       let idMovie = e.target.id;
+      searchExistantMovie(idMovie);
+      return false;
       if(idUser != 0) {
         axios({
           method: 'get',
@@ -104,6 +106,28 @@ var app = new Vue({
     },
 
     /**
+     * Permet de regarder si un film existe dans notre base
+     * @param   {int}     id 
+     * @returns {boolean} 
+     */
+    searchExistantMovie: function(id)
+    {
+      let exists = false;
+      axios.get(API_M2W + '/movies/' + id,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      }).then(response => {
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
+      ;
+      return exists;
+    },
+
+    /**
      * Permet de récupérer les films de notre liste
      * @param {*} e 
      */
@@ -123,7 +147,7 @@ var app = new Vue({
             let data = response.data;
             let userMovies = data.movies;
             console.log(userMovies);
-            if(userMovies.length) {
+            if(userMovies) {
               this.movies = [];
               userMovies.forEach(element => {
                 if(element.idUser = idUser) {

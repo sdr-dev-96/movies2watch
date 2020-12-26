@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
@@ -68,10 +70,14 @@ class Movie
     private $date_ajout;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="movies")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="movies")
      */
-    private $id_user;
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -174,14 +180,30 @@ class Movie
         return $this;
     }
 
-    public function getIdUser(): ?User
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
     {
-        return $this->id_user;
+        return $this->users;
     }
 
-    public function setIdUser(?User $id_user): self
+    public function addUser(User $user): self
     {
-        $this->id_user = $id_user;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeMovie($this);
+        }
 
         return $this;
     }

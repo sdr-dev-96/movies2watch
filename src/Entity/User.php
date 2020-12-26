@@ -74,8 +74,7 @@ class User implements UserInterface
     private $avatar;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Movie", mappedBy="id_user")
-     * @Groups("movie")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Movie", inversedBy="users")
      */
     private $movies;
 
@@ -226,7 +225,6 @@ class User implements UserInterface
     {
         if (!$this->movies->contains($movie)) {
             $this->movies[] = $movie;
-            $movie->setIdUser($this);
         }
 
         return $this;
@@ -236,10 +234,6 @@ class User implements UserInterface
     {
         if ($this->movies->contains($movie)) {
             $this->movies->removeElement($movie);
-            // set the owning side to null (unless already changed)
-            if ($movie->getIdUser() === $this) {
-                $movie->setIdUser(null);
-            }
         }
 
         return $this;
